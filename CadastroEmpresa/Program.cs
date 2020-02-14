@@ -1,34 +1,41 @@
-﻿using CadastroEmpresa.Serialization;
-using Newtonsoft.Json;
+﻿using Refit;
 using System;
-using System.IO;
+using System.Threading.Tasks;
 
 namespace CadastroEmpresa
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
-            var json = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + @"\empresa.json");
+            try
+            {
+                var cnpjEmpresa = RestService.For<EmpresaApiService>("https://www.receitaws.com.br");
+                Console.WriteLine("Informe o cnpj: ");
+                string cnpjInformado = Console.ReadLine().ToString();
 
-            //Leitura arquivo empresa.json Modo1
-            //var js = new DataContractJsonSerializer(typeof(Empresa));
-            //var ms = new MemoryStream(Encoding.UTF8.GetBytes(json));
-            //var empresa = (Empresa)js.ReadObject(ms);
-
-
-            //Leitura arquivo empresa.json Modo2: Pacote Newtonsoft.Json
-            var empresa = JsonConvert.DeserializeObject<Empresa>(json);
+                //TODO: validar cnpj
 
 
-            //Escrita de alguns dados obtidos no arquivo empresa.json no console
-            Console.WriteLine($"O nome da empresa é: {empresa.nome}");
-            Console.WriteLine($"\nTambém conhecida por: {empresa.fantasia}");
-            Console.WriteLine("\nA data de sua abertura foi: " + empresa.abertura);
-            Console.WriteLine($"\nO CNPJ da {empresa.fantasia} é: {empresa.cnpj}.");
-            Console.WriteLine($"\nO {(empresa.qsa[1].qual).Replace("16-","")} " +
-                $"da {empresa.fantasia} é o {empresa.qsa[1].nome}.");
-            Console.ReadLine();
+                Console.WriteLine($"\nConsultando informacoes do CNPJ: {cnpjInformado}");
+
+                //Salvando as informações de maneira assincrona da web api na variavel empresa
+                var empresa = await cnpjEmpresa.GetEmpresaAsync(cnpjInformado);
+
+                //Escrita de alguns dados obtidas pela web api
+                Console.WriteLine($"\nO nome da empresa é: {empresa.Nome}");
+                Console.WriteLine($"\nTambém conhecida por: {empresa.Fantasia}");
+                Console.WriteLine("\nA data de sua abertura foi: " + empresa.Abertura);
+                Console.WriteLine($"\nO CNPJ da {empresa.Fantasia} é: {empresa.Cnpj}.");
+                Console.ReadLine();
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine($"\nErro na consulta de cnpj:  {e.Message}");
+                Console.ReadLine();
+            }
+
+            
         }
     }
 }

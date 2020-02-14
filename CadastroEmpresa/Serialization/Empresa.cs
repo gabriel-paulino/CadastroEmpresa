@@ -1,38 +1,69 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace CadastroEmpresa.Serialization
 {
     public class Empresa
     {
-        public List<AtividadePrincipal> atividade_principal { get; set; }
-        public string data_situacao { get; set; }
-        public string nome { get; set; }
-        public string efr { get; set; }
-        public string uf { get; set; }
-        public string telefone { get; set; }
-        public string email { get; set; }
-        public List<AtividadesSecundaria> atividades_secundarias { get; set; }
-        public List<Qsa> qsa { get; set; }
-        public string situacao { get; set; }
-        public string bairro { get; set; }
-        public string logradouro { get; set; }
-        public string numero { get; set; }
-        public string cep { get; set; }
-        public string municipio { get; set; }
-        public string porte { get; set; }
-        public string abertura { get; set; }
-        public string natureza_juridica { get; set; }
-        public string fantasia { get; set; }
-        public string cnpj { get; set; }
-        public string ultima_atualizacao { get; set; }
-        public string status { get; set; }
-        public string tipo { get; set; }
-        public string complemento { get; set; }
-        public string motivo_situacao { get; set; }
-        public string situacao_especial { get; set; }
-        public string data_situacao_especial { get; set; }
-        public string capital_social { get; set; }
-        public Extra extra { get; set; }
-        public Billing billing { get; set; }
+        [JsonProperty("atividade_principal")]
+        public List<AtividadePrincipal> AtividadePrincipal { get; set; }
+        [JsonProperty("data_situacao")]
+        public string DataSituacao { get; set; }
+        [JsonProperty("nome")]
+        public string Nome { get; set; }
+        [JsonProperty("efr")]
+        public string Efr { get; set; }
+        [JsonProperty("uf")]
+        public string Uf { get; set; }
+        [JsonProperty("telefone")]
+        public string Telefone { get; set; }
+        [JsonProperty("email")]
+        public string Email { get; set; }
+        [JsonProperty("atividades_secundarias")]
+        public List<AtividadesSecundaria> AtividadesSecundarias { get; set; }
+        [JsonProperty("qsa")]
+        public List<Qsa> Qsa { get; set; }
+        [JsonProperty("situacao")]
+        public string Situacao { get; set; }
+        [JsonProperty("bairro")]
+        public string Bairro { get; set; }
+        [JsonProperty("logradouro")]
+        public string Logradouro { get; set; }
+        [JsonProperty("numero")]
+        public string Numero { get; set; }
+        [JsonProperty("cep")]
+        public string Cep { get; set; }
+        [JsonProperty("municipio")]
+        public string Municipio { get; set; }
+        [JsonProperty("porte")]
+        public string Porte { get; set; }
+        [JsonProperty("abertura")]
+        public string Abertura { get; set; }
+        [JsonProperty("natureza_juridica")]
+        public string NaturezaJuridica { get; set; }
+        [JsonProperty("fantasia")]
+        public string Fantasia { get; set; }
+        [JsonProperty("cnpj")]
+        public string Cnpj { get; set; }
+        [JsonProperty("ultima_atualizacao")]
+        public string UltimaAtualizacao { get; set; }
+        [JsonProperty("status")]
+        public string Status { get; set; }
+        [JsonProperty("tipo")]
+        public string Tipo { get; set; }
+        [JsonProperty("complemento")]
+        public string Complemento { get; set; }
+        [JsonProperty("motivo_situacao")]
+        public string MotivoSituacao { get; set; }
+        [JsonProperty("situacao_especial")]
+        public string SituacaoEspecial { get; set; }
+        [JsonProperty("data_situacao_especial")]
+        public string DataSituacaoEspecial { get; set; }
+        [JsonProperty("capital_social")]
+        public string CapitalSocial { get; set; }
+        [JsonProperty("extra")]
+        public Extra Extra { get; set; }
+        [JsonProperty("billing")]
+        public Billing Billing { get; set; }
     }
 }

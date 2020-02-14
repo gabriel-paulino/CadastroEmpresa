@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,9 @@ namespace CadastroEmpresa.Serialization
 {
     public class Billing
     {
-        public bool free { get; set; }
-        public bool database { get; set; }
+        [JsonProperty("free")]
+        public bool Free { get; set; }
+        [JsonProperty("database")]
+        public bool Database { get; set; }
     }
 }
