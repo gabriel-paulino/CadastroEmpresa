@@ -10,3 +10,15 @@ C:\Users\gabriel.paulino.AP\Desktop\GIT\CadastroEmpresa\CadastroEmpresa\obj\Debu
 C:\Users\gabriel.paulino.AP\Desktop\GIT\CadastroEmpresa\CadastroEmpresa\bin\Debug\Refit.dll
 C:\Users\gabriel.paulino.AP\Desktop\GIT\CadastroEmpresa\CadastroEmpresa\bin\Debug\Refit.xml
 C:\Users\gabriel.paulino.AP\Desktop\GIT\CadastroEmpresa\CadastroEmpresa\obj\Debug\RefitStubs.g.cs
+C:\Users\GABRIEL\Desktop\Projetos\CadastroEmpresa\CadastroEmpresa\bin\Debug\CadastroEmpresa.exe.config
+C:\Users\GABRIEL\Desktop\Projetos\CadastroEmpresa\CadastroEmpresa\bin\Debug\CadastroEmpresa.exe
+C:\Users\GABRIEL\Desktop\Projetos\CadastroEmpresa\CadastroEmpresa\bin\Debug\CadastroEmpresa.pdb
+C:\Users\GABRIEL\Desktop\Projetos\CadastroEmpresa\CadastroEmpresa\bin\Debug\Newtonsoft.Json.dll
+C:\Users\GABRIEL\Desktop\Projetos\CadastroEmpresa\CadastroEmpresa\bin\Debug\Refit.dll
+C:\Users\GABRIEL\Desktop\Projetos\CadastroEmpresa\CadastroEmpresa\bin\Debug\Newtonsoft.Json.xml
+C:\Users\GABRIEL\Desktop\Projetos\CadastroEmpresa\CadastroEmpresa\bin\Debug\Refit.xml
+C:\Users\GABRIEL\Desktop\Projetos\CadastroEmpresa\CadastroEmpresa\obj\Debug\CadastroEmpresa.csprojAssemblyReference.cache
+C:\Users\GABRIEL\Desktop\Projetos\CadastroEmpresa\CadastroEmpresa\obj\Debug\RefitStubs.g.cs
+C:\Users\GABRIEL\Desktop\Projetos\CadastroEmpresa\CadastroEmpresa\obj\Debug\CadastroEmpresa.csproj.CopyComplete
+C:\Users\GABRIEL\Desktop\Projetos\CadastroEmpresa\CadastroEmpresa\obj\Debug\CadastroEmpresa.exe
+C:\Users\GABRIEL\Desktop\Projetos\CadastroEmpresa\CadastroEmpresa\obj\Debug\CadastroEmpresa.pdb
