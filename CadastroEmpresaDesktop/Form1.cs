@@ -1,6 +1,7 @@
 ﻿using CadastroEmpresa;
 using Refit;
 using System;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace CadastroEmpresaDesktop
@@ -130,7 +131,7 @@ namespace CadastroEmpresaDesktop
                         });
                         conn.SaveChanges();
                     }
-                    MessageBox.Show("Empresa inserida no Banco de Dados com sucesso!", "Sucesso");
+                    MessageBox.Show($"{empresa.Nome} inserida no Banco de Dados com sucesso!", "Sucesso");
 
                     //Limpando componentes após inserção no banco de Dados
                     txtCnpj.Text = "";
@@ -155,6 +156,88 @@ namespace CadastroEmpresaDesktop
                 txtCnpj.Text = "";
             }
 
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            string cnpjInformado = txtCnpj.Text;
+            cnpjInformado = cnpjInformado.Replace(".", "").Replace("/", "").Replace("-", "");
+
+            // Consulta por CNPJ
+            if (cnpjInformado != "            " && txtNome.Text == "")
+            {
+                //Válidação do CNPJ
+                if (ValidaCNPJ.IsCnpj(txtCnpj.Text))
+                {
+                    try
+                    {
+                        using (Context conn = new Context())
+                        {
+                            var consultaEmpresa = conn.Empresas.Where(a => a.Cnpj == txtCnpj.Text).FirstOrDefault();
+                            conn.Entry(consultaEmpresa).Collection(p => p.AtividadePrincipal).Load();
+                            conn.Entry(consultaEmpresa).Collection(s => s.AtividadesSecundarias).Load();
+                            conn.Entry(consultaEmpresa).Collection(q => q.Qsa).Load();
+
+                            txtNome.Text = consultaEmpresa.Nome;
+                            txtFantasia.Text = consultaEmpresa.Fantasia;
+                            txtAtividadePrincipal.Text = consultaEmpresa.AtividadePrincipal[0].Text;
+                            txtDataAbertura.Text = consultaEmpresa.Abertura;
+                            txtSituacao.Text = consultaEmpresa.Situacao;
+                            txtCapitalSocial.Text = String.Format("{0:c}", (Convert.ToDouble(consultaEmpresa.CapitalSocial)) / 100);
+                        }
+
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("CNPJ não encontrado!\nVerifique se essa empresa já foi inserida na base de dados.", "CNPJ erro");
+                        txtCnpj.Text = "";
+                        txtCnpj.Focus();
+                    }
+
+                }
+                else
+                {
+                    MessageBox.Show("Insira um CNPJ válido", "CNPJ Inválido");
+                    txtCnpj.Text = "";
+                    txtCnpj.Focus();
+                }
+
+            } else if (cnpjInformado == "            " && txtNome.Text != "")
+            {
+                try
+                {
+                    using (Context conn = new Context())
+                    {
+                        var consultaEmpresa = conn.Empresas.Where(a => a.Nome == txtNome.Text).FirstOrDefault();
+                        conn.Entry(consultaEmpresa).Collection(p => p.AtividadePrincipal).Load();
+                        conn.Entry(consultaEmpresa).Collection(s => s.AtividadesSecundarias).Load();
+                        conn.Entry(consultaEmpresa).Collection(q => q.Qsa).Load();
+
+                        txtCnpj.Text = consultaEmpresa.Cnpj;
+                        txtFantasia.Text = consultaEmpresa.Fantasia;
+                        txtAtividadePrincipal.Text = consultaEmpresa.AtividadePrincipal[0].Text;
+                        txtDataAbertura.Text = consultaEmpresa.Abertura;
+                        txtSituacao.Text = consultaEmpresa.Situacao;
+                        txtCapitalSocial.Text = String.Format("{0:c}", (Convert.ToDouble(consultaEmpresa.CapitalSocial)) / 100);
+                    }
+
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Nome não cadastrado!\nVerifique se essa empresa já foi inserida na base de dados.", "Nome erro");
+                    txtNome.Text = "";
+                    txtNome.Focus();
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("É possível fazer consulta apenas por CNPJ ou por Nome!\nDigite um CNPJ ou um Nome da empresa que deseja buscar no BD", "Consulta não definida");
+                txtCnpj.Text = "";
+                txtNome.Text = "";
+                txtCnpj.Focus();
+            }
+            
         }
     }
 }
