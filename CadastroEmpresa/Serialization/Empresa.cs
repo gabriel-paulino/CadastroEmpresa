@@ -5,6 +5,7 @@ namespace CadastroEmpresa.Serialization
 {
     public class Empresa
     {
+        public int Id { get; set; }
         [JsonProperty("atividade_principal")]
         public List<AtividadePrincipal> AtividadePrincipal { get; set; }
         [JsonProperty("data_situacao")]
@@ -61,9 +62,5 @@ namespace CadastroEmpresa.Serialization
         public string DataSituacaoEspecial { get; set; }
         [JsonProperty("capital_social")]
         public string CapitalSocial { get; set; }
-        [JsonProperty("extra")]
-        public Extra Extra { get; set; }
-        [JsonProperty("billing")]
-        public Billing Billing { get; set; }
     }
 }

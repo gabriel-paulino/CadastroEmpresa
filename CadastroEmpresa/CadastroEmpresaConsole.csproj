@@ -58,9 +58,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serialization\AtividadePrincipal.cs" />
     <Compile Include="Serialization\AtividadesSecundaria.cs" />
-    <Compile Include="Serialization\Billing.cs" />
     <Compile Include="Serialization\Empresa.cs" />
-    <Compile Include="Serialization\Extra.cs" />
     <Compile Include="Serialization\Qsa.cs" />
   </ItemGroup>
   <ItemGroup>
