@@ -1,6 +1,7 @@
 ﻿using CadastroEmpresa;
 using Refit;
 using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -16,14 +17,13 @@ namespace CadastroEmpresaDesktop
         private void Form1_Load(object sender, EventArgs e)
         {
             // Configurando Componentes ao executar app
-            btnAdicionar.Enabled = false;
-            btnBuscar.Enabled = true;
-            btnConsultar.Enabled = true;
-            btnExcluir.Enabled = true;
-            txtCnpj.Enabled = true;
 
+            txtCnpj.Enabled = true;
             txtNome.Enabled = true;
             txtFantasia.Enabled = false;
+            txtLogradouro.Enabled = false;
+            txtNumero.Enabled = false;
+            txtBairro.Enabled = false;
             txtAtividadePrincipal.Enabled = false;
             txtDataAbertura.Enabled = false;
             txtSituacao.Enabled = false;
@@ -55,6 +55,9 @@ namespace CadastroEmpresaDesktop
                         //Mostrando alguns dados obtidos na web service
                         txtNome.Text = empresa.Nome;
                         txtFantasia.Text = empresa.Fantasia;
+                        txtLogradouro.Text = empresa.Logradouro;
+                        txtNumero.Text = empresa.Numero;
+                        txtBairro.Text = empresa.Bairro;
                         txtAtividadePrincipal.Text = empresa.AtividadePrincipal[0].Text;
                         txtDataAbertura.Text = empresa.Abertura;
                         txtSituacao.Text = empresa.Situacao;
@@ -62,8 +65,6 @@ namespace CadastroEmpresaDesktop
                         //Formatando o campo Capital Social para R$
                         txtCapitalSocial.Text = String.Format("{0:c}", (Convert.ToDouble(empresa.CapitalSocial)) / 100);
 
-                        btnBuscar.Enabled = false;
-                        btnAdicionar.Enabled = true;
                         empresa = null;
                     }
                     else
@@ -81,6 +82,7 @@ namespace CadastroEmpresaDesktop
             {
                 MessageBox.Show("Insira um CNPJ válido", "CNPJ Inválido");
                 txtCnpj.Text = "";
+                txtCnpj.Focus();
             }
         }
 
@@ -137,12 +139,15 @@ namespace CadastroEmpresaDesktop
                     txtCnpj.Text = "";
                     txtNome.Text = "";
                     txtFantasia.Text = "";
+                    txtLogradouro.Text = "";
+                    txtNumero.Text = "";
+                    txtBairro.Text = "";
                     txtAtividadePrincipal.Text = "";
                     txtDataAbertura.Text = "";
                     txtSituacao.Text = "";
                     txtCapitalSocial.Text = "";
-                    empresa = null;
                     txtCnpj.Focus();
+                    empresa = null;
                 }
                 catch (Exception err)
                 {
@@ -154,6 +159,7 @@ namespace CadastroEmpresaDesktop
             {
                 MessageBox.Show("Insira um CNPJ válido", "CNPJ Inválido");
                 txtCnpj.Text = "";
+                txtCnpj.Focus();
             }
 
         }
@@ -161,12 +167,12 @@ namespace CadastroEmpresaDesktop
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             string cnpjInformado = txtCnpj.Text;
-            cnpjInformado = cnpjInformado.Replace(".", "").Replace("/", "").Replace("-", "");
+            cnpjInformado = cnpjInformado.Replace(".", "").Replace("/", "").Replace("-", "").Replace(" ","");
 
-            // Consulta por CNPJ
-            if (cnpjInformado != "            " && txtNome.Text == "")
+            // Consulta por CNPJ da empresa
+            if (cnpjInformado != "" && txtNome.Text == "")
             {
-                //Válidação do CNPJ
+                //Validação do CNPJ
                 if (ValidaCNPJ.IsCnpj(txtCnpj.Text))
                 {
                     try
@@ -180,6 +186,9 @@ namespace CadastroEmpresaDesktop
 
                             txtNome.Text = consultaEmpresa.Nome;
                             txtFantasia.Text = consultaEmpresa.Fantasia;
+                            txtLogradouro.Text = consultaEmpresa.Logradouro;
+                            txtNumero.Text = consultaEmpresa.Numero;
+                            txtBairro.Text = consultaEmpresa.Bairro;
                             txtAtividadePrincipal.Text = consultaEmpresa.AtividadePrincipal[0].Text;
                             txtDataAbertura.Text = consultaEmpresa.Abertura;
                             txtSituacao.Text = consultaEmpresa.Situacao;
@@ -201,8 +210,10 @@ namespace CadastroEmpresaDesktop
                     txtCnpj.Text = "";
                     txtCnpj.Focus();
                 }
+            }
 
-            } else if (cnpjInformado == "            " && txtNome.Text != "")
+            //Consulta por Nome da empresa
+            else if (cnpjInformado == "" && txtNome.Text != "")
             {
                 try
                 {
@@ -215,6 +226,9 @@ namespace CadastroEmpresaDesktop
 
                         txtCnpj.Text = consultaEmpresa.Cnpj;
                         txtFantasia.Text = consultaEmpresa.Fantasia;
+                        txtLogradouro.Text = consultaEmpresa.Logradouro;
+                        txtNumero.Text = consultaEmpresa.Numero;
+                        txtBairro.Text = consultaEmpresa.Bairro;
                         txtAtividadePrincipal.Text = consultaEmpresa.AtividadePrincipal[0].Text;
                         txtDataAbertura.Text = consultaEmpresa.Abertura;
                         txtSituacao.Text = consultaEmpresa.Situacao;
@@ -230,6 +244,8 @@ namespace CadastroEmpresaDesktop
                 }
 
             }
+
+            //Consulta sem parâmetros de busca ou com dois parâmetros de busca
             else
             {
                 MessageBox.Show("É possível fazer consulta apenas por CNPJ ou por Nome!\nDigite um CNPJ ou um Nome da empresa que deseja buscar no BD", "Consulta não definida");
@@ -239,5 +255,86 @@ namespace CadastroEmpresaDesktop
             }
             
         }
+
+        private void btnExcluir_Click(object sender, EventArgs e)
+        {
+            if (ValidaCNPJ.IsCnpj(txtCnpj.Text))
+            {
+                if (MessageBox.Show("Você tem certeza que deseja excluir este Registro?", "Confirmação de Operação", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    try
+                    {
+                        using (Context conn = new Context())
+                        {
+                            var deleteEmpresa = conn.Empresas.Where(c => c.Cnpj == txtCnpj.Text).FirstOrDefault();
+                            conn.Entry(deleteEmpresa).Collection(p => p.AtividadePrincipal).Load();
+                            conn.Entry(deleteEmpresa).Collection(s => s.AtividadesSecundarias).Load();
+                            conn.Entry(deleteEmpresa).Collection(q => q.Qsa).Load();
+                            conn.Entry(deleteEmpresa).State = EntityState.Deleted;
+                            conn.SaveChanges();
+                            MessageBox.Show($"{deleteEmpresa.Nome} deletada com Sucesso!", "Exclusão");
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("CNPJ não encontrado!\nVerifique se essa empresa já foi inserida na base de dados.", "CNPJ erro");
+                        txtCnpj.Text = "";
+                        txtCnpj.Focus();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Operação cancelada com Sucesso!","Operação cancelada");
+                }
+                
+            }
+            else
+            {
+                MessageBox.Show("Insira um CNPJ válido", "CNPJ Inválido");
+                txtCnpj.Text = "";
+                txtCnpj.Focus();
+            }
+
+            txtCnpj.Text = "";
+            txtNome.Text = "";
+            txtFantasia.Text = "";
+            txtLogradouro.Text = "";
+            txtNumero.Text = "";
+            txtBairro.Text = "";
+            txtAtividadePrincipal.Text = "";
+            txtDataAbertura.Text = "";
+            txtSituacao.Text = "";
+            txtCapitalSocial.Text = "";
+            txtCnpj.Focus();
+        }
+
+        private void btnSair_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void btnLimparTela_Click(object sender, EventArgs e)
+        {
+            txtCnpj.Text = "";
+            txtNome.Text = "";
+            txtFantasia.Text = "";
+            txtLogradouro.Text = "";
+            txtNumero.Text = "";
+            txtBairro.Text = "";
+            txtAtividadePrincipal.Text = "";
+            txtDataAbertura.Text = "";
+            txtSituacao.Text = "";
+            txtCapitalSocial.Text = "";
+            txtCnpj.Focus();
+        }
     }
 }
+
+/*TO DO/TRY
+ * 1.Validação web service esta disponível?
+ * 2.Corrigir bug do Adicionar
+ * 3.Tentar desenvolver Web API - Swagger
+ * 4.Tentar desenvolver solução MVC
+ * 5.Tentar desenvolver testes unitários
+ * 6.Preencher README.md
+ */
