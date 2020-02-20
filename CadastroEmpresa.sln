@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CadastroEmpresaConsole", "C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CadastroEmpresaDesktop", "CadastroEmpresaDesktop\CadastroEmpresaDesktop.csproj", "{FF480886-E630-42A5-B4F6-BA275EECDB9E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CadastroEmpresaMVC", "CadastroEmpresaMVC\CadastroEmpresaMVC.csproj", "{2DF0E61A-528F-4152-AC03-AE448D6B9E22}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{FF480886-E630-42A5-B4F6-BA275EECDB9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF480886-E630-42A5-B4F6-BA275EECDB9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF480886-E630-42A5-B4F6-BA275EECDB9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DF0E61A-528F-4152-AC03-AE448D6B9E22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DF0E61A-528F-4152-AC03-AE448D6B9E22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DF0E61A-528F-4152-AC03-AE448D6B9E22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DF0E61A-528F-4152-AC03-AE448D6B9E22}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
