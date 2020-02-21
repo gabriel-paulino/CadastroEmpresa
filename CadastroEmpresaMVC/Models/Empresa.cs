@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -9,14 +10,16 @@ namespace CadastroEmpresaMVC.Models
     public class Empresa
     {
         public int Id { get; set; }
+        [JsonProperty("nome")]
+        [Required(ErrorMessage = "O Campo Nome é obrigatório")]
+        public string Nome { get; set; }
         [JsonProperty("cnpj")]
+        [Required(ErrorMessage = "O Campo Cnpj é obrigatório")]
         public string Cnpj { get; set; }
         //[JsonProperty("atividade_principal")]
         //public virtual List<AtividadePrincipal> AtividadePrincipals { get; set; }
         [JsonProperty("data_situacao")]
         public string DataSituacao { get; set; }
-        [JsonProperty("nome")]
-        public string Nome { get; set; }
         [JsonProperty("efr")]
         public string Efr { get; set; }
         [JsonProperty("uf")]

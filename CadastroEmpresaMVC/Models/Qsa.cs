@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CadastroEmpresaMVC.Models
@@ -10,8 +11,9 @@ namespace CadastroEmpresaMVC.Models
         public string Qual { get; set; }
         [JsonProperty("nome")]
         public string Nome { get; set; }
-        public int Cnpj { get; set; }
-        [ForeignKey("Cnpj")]
+        [Required(ErrorMessage = "O Campo Cnpj é obrigatório")]
+        public int EmpresaID { get; set; }
+        [ForeignKey("EmpresaID")]
         public virtual Empresa Empresa { get; set; }
     }
 }

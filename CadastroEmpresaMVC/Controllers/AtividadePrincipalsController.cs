@@ -40,7 +40,7 @@ namespace CadastroEmpresaMVC.Controllers
         // GET: AtividadePrincipals/Create
         public ActionResult Create()
         {
-            ViewBag.Cnpj = new SelectList(db.Empresas, "Id", "Cnpj");
+            ViewBag.EmpresaID = new SelectList(db.Empresas, "Id", "Nome");
             return View();
         }
 
@@ -49,16 +49,23 @@ namespace CadastroEmpresaMVC.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Text,Code,Cnpj")] AtividadePrincipal atividadePrincipal)
+        public ActionResult Create([Bind(Include = "Id,Text,Code,EmpresaID")] AtividadePrincipal atividadePrincipal)
         {
             if (ModelState.IsValid)
             {
-                db.AtividadePrincipals.Add(atividadePrincipal);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (atividadePrincipal.EmpresaID == 0)
+                {
+                    ModelState.AddModelError("EmpresaID", "Selecione uma empresa, caso não exista favor cadastrar uma! ");
+                }
+                else
+                {
+                    db.AtividadePrincipals.Add(atividadePrincipal);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                } 
             }
 
-            ViewBag.Cnpj = new SelectList(db.Empresas, "Id", "Cnpj", atividadePrincipal.Cnpj);
+            ViewBag.EmpresaID = new SelectList(db.Empresas, "Id", "Nome", atividadePrincipal.EmpresaID);
             return View(atividadePrincipal);
         }
 
@@ -74,7 +81,7 @@ namespace CadastroEmpresaMVC.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Cnpj = new SelectList(db.Empresas, "Id", "Cnpj", atividadePrincipal.Cnpj);
+            ViewBag.EmpresaID = new SelectList(db.Empresas, "Id", "Nome", atividadePrincipal.EmpresaID);
             return View(atividadePrincipal);
         }
 
@@ -83,7 +90,7 @@ namespace CadastroEmpresaMVC.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Text,Code,Cnpj")] AtividadePrincipal atividadePrincipal)
+        public ActionResult Edit([Bind(Include = "Id,Text,Code,EmpresaID")] AtividadePrincipal atividadePrincipal)
         {
             if (ModelState.IsValid)
             {
@@ -91,7 +98,7 @@ namespace CadastroEmpresaMVC.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.Cnpj = new SelectList(db.Empresas, "Id", "Cnpj", atividadePrincipal.Cnpj);
+            ViewBag.EmpresaID = new SelectList(db.Empresas, "Id", "Nome", atividadePrincipal.EmpresaID);
             return View(atividadePrincipal);
         }
 

@@ -139,6 +139,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002200125566_InitialCreate.cs" />
+    <Compile Include="Migrations\202002200125566_InitialCreate.designer.cs">
+      <DependentUpon>202002200125566_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002212056201_CadastroEmpresaMVC.cs" />
+    <Compile Include="Migrations\202002212056201_CadastroEmpresaMVC.designer.cs">
+      <DependentUpon>202002212056201_CadastroEmpresaMVC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AtividadePrincipal.cs" />
     <Compile Include="Models\AtividadesSecundaria.cs" />
     <Compile Include="Models\Empresa.cs" />
@@ -217,6 +226,14 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202002200125566_InitialCreate.resx">
+      <DependentUpon>202002200125566_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002212056201_CadastroEmpresaMVC.resx">
+      <DependentUpon>202002212056201_CadastroEmpresaMVC.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

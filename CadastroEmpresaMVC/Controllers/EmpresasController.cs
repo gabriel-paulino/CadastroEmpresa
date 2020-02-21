@@ -47,13 +47,30 @@ namespace CadastroEmpresaMVC.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Cnpj,DataSituacao,Nome,Efr,Uf,Telefone,Email,Situacao,Bairro,Logradouro,Numero,Cep,Municipio,Porte,Abertura,NaturezaJuridica,Fantasia,UltimaAtualizacao,Status,Tipo,Complemento,MotivoSituacao,SituacaoEspecial,DataSituacaoEspecial,CapitalSocial")] Empresa empresa)
+        public ActionResult Create([Bind(Include = "Id,Nome,Cnpj,DataSituacao,Efr,Uf,Telefone,Email,Situacao,Bairro,Logradouro,Numero,Cep,Municipio,Porte,Abertura,NaturezaJuridica,Fantasia,UltimaAtualizacao,Status,Tipo,Complemento,MotivoSituacao,SituacaoEspecial,DataSituacaoEspecial,CapitalSocial")] Empresa empresa)
         {
             if (ModelState.IsValid)
             {
-                db.Empresas.Add(empresa);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (empresa.Nome == "" && empresa.Cnpj != "")
+                {
+                    ModelState.AddModelError("Nome", "O Nome é um campo obrigatório! Favor inserir um Nome");
+
+                }
+                else if (empresa.Nome != "" && empresa.Cnpj == "")
+                {
+                    ModelState.AddModelError("Cnpj", "O Cnpj é um campo obrigatório! Favor inserir um Cnpj");
+                }
+                else if (empresa.Nome == "" && empresa.Cnpj == "")
+                {
+                    ModelState.AddModelError("Nome", "O Nome é um campo obrigatório! Favor inserir um Nome");
+                    ModelState.AddModelError("Cnpj", "O Cnpj é um campo obrigatório! Favor inserir um Cnpj");
+                }
+                else
+                {
+                    db.Empresas.Add(empresa);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
 
             return View(empresa);
@@ -79,7 +96,7 @@ namespace CadastroEmpresaMVC.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Cnpj,DataSituacao,Nome,Efr,Uf,Telefone,Email,Situacao,Bairro,Logradouro,Numero,Cep,Municipio,Porte,Abertura,NaturezaJuridica,Fantasia,UltimaAtualizacao,Status,Tipo,Complemento,MotivoSituacao,SituacaoEspecial,DataSituacaoEspecial,CapitalSocial")] Empresa empresa)
+        public ActionResult Edit([Bind(Include = "Id,Nome,Cnpj,DataSituacao,Efr,Uf,Telefone,Email,Situacao,Bairro,Logradouro,Numero,Cep,Municipio,Porte,Abertura,NaturezaJuridica,Fantasia,UltimaAtualizacao,Status,Tipo,Complemento,MotivoSituacao,SituacaoEspecial,DataSituacaoEspecial,CapitalSocial")] Empresa empresa)
         {
             if (ModelState.IsValid)
             {
